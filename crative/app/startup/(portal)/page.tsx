@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import styles from '../roles.module.css';
+import styles from '../../roles.module.css';
 
 const showcase = [
     { title: 'Demo Day Highlights', image: '/rm100.jpg' },

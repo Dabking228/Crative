@@ -1,14 +1,14 @@
-import RoleTopNav from '../components/RoleTopNav';
-import styles from '../roles.module.css';
+import RoleTopNav from '../../components/RoleTopNav';
+import styles from '../../roles.module.css';
 
 const startupNavItems = [
     { label: 'Home', href: '/startup' },
     { label: 'Projects', href: '/startup/projects' },
     { label: 'Application Status', href: '/startup/application-status' },
-    { label: 'Apply Programme', href: '/startup/apply-programme' },
+    { label: 'Apply Now', href: '/startup/apply' },
 ];
 
-export default function StartupsLayout({
+export default function StartupsPortalLayout({
     children,
 }: Readonly<{
     children: React.ReactNode;

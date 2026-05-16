@@ -9,7 +9,9 @@ import type {
   SSEToken,
 } from './types';
 
-const BASE = process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:8000';
+// Empty string → relative /api/... calls → Next.js mock routes (no backend needed).
+// Set NEXT_PUBLIC_API_URL=http://localhost:8000 in .env.local to use the real Python backend.
+const BASE = (process.env.NEXT_PUBLIC_API_URL ?? '').replace(/\/$/, '');
 
 async function request<T>(path: string, init?: RequestInit): Promise<T> {
   const res = await fetch(`${BASE}${path}`, {
@@ -52,7 +54,8 @@ export function streamGatekeeper(
   onDone: (result: SSEToken['result']) => void,
   onError: (err: Error) => void
 ): () => void {
-  const es = new EventSource(`${BASE}/api/apply/${applicationId}/stream`);
+  const streamBase = BASE || window.location.origin;
+  const es = new EventSource(`${streamBase}/api/apply/${applicationId}/stream`);
 
   es.onmessage = (event) => {
     try {
