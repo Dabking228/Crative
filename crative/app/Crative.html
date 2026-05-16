@@ -1,0 +1,604 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cradle Ecosystem Portal Prototype</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #050508;
+            color: white;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        #canvas-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 1;
+        }
+
+        .content {
+            position: fixed;
+            top: 50%;
+            right: 8%;
+            transform: translateY(-50%);
+            z-index: 2;
+            text-align: right;
+            pointer-events: none;
+            max-width: 560px;
+        }
+
+        h1 {
+            font-size: 4.5rem;
+            font-weight: 300;
+            margin: 0;
+            letter-spacing: -1px;
+            line-height: 1.1;
+            background: linear-gradient(90deg, #ffffff, #888888);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .scroll-indicator {
+            position: fixed;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 2;
+            font-size: 0.85rem;
+            letter-spacing: 3px;
+            color: rgba(255, 255, 255, 0.5);
+            animation: bounce 2s infinite;
+        }
+
+        .portal-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 4;
+            padding: 18px 5vw;
+            box-sizing: border-box;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(180deg, rgba(5, 5, 8, 0.8), rgba(5, 5, 8, 0));
+            backdrop-filter: blur(2px);
+        }
+
+        .brand {
+            font-size: 0.95rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .nav-links a {
+            color: #f8f8f8;
+            text-decoration: none;
+            font-size: 0.82rem;
+            letter-spacing: 0.8px;
+            padding: 8px 12px;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            border-radius: 999px;
+            background: rgba(11, 14, 24, 0.5);
+        }
+
+        .portal-shell {
+            position: relative;
+            z-index: 3;
+            width: min(1120px, 92vw);
+            margin: 0 auto;
+            padding-top: 105vh;
+            padding-bottom: 14vh;
+        }
+
+        .panel {
+            background: rgba(8, 11, 20, 0.76);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 20px;
+            backdrop-filter: blur(8px);
+            box-shadow: 0 14px 40px rgba(0, 0, 0, 0.35);
+            padding: 22px;
+            margin-bottom: 18px;
+        }
+
+        .section-title {
+            margin: 0 0 10px;
+            font-size: 1.08rem;
+            letter-spacing: 0.4px;
+        }
+
+        .section-subtitle {
+            margin: 0 0 16px;
+            color: rgba(255, 255, 255, 0.72);
+            font-size: 0.92rem;
+            line-height: 1.5;
+        }
+
+        .quick-grid {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 12px;
+        }
+
+        .quick-tile {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 14px;
+            padding: 14px;
+        }
+
+        .quick-tile strong {
+            display: block;
+            font-size: 1.2rem;
+            margin-top: 6px;
+        }
+
+        .button-row {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 6px;
+        }
+
+        .btn {
+            border: 0;
+            border-radius: 10px;
+            padding: 10px 14px;
+            font-weight: 600;
+            letter-spacing: 0.2px;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #25d9ff, #1495ff);
+            color: #021226;
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .flow-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 12px;
+        }
+
+        .flow-step {
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 14px;
+            padding: 14px;
+        }
+
+        .flow-step h3 {
+            margin: 0 0 8px;
+            font-size: 0.98rem;
+        }
+
+        .flow-step p {
+            margin: 0;
+            color: rgba(255, 255, 255, 0.72);
+            font-size: 0.88rem;
+            line-height: 1.45;
+        }
+
+        .table-wrap {
+            overflow-x: auto;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 740px;
+            background: rgba(255, 255, 255, 0.03);
+        }
+
+        th, td {
+            padding: 12px 14px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9rem;
+        }
+
+        th {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.9px;
+            color: rgba(255, 255, 255, 0.72);
+            background: rgba(2, 8, 18, 0.8);
+        }
+
+        .status-chip {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 999px;
+            font-size: 0.75rem;
+            letter-spacing: 0.4px;
+            border: 1px solid rgba(255, 255, 255, 0.22);
+            background: rgba(37, 217, 255, 0.12);
+        }
+
+        .upload-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 12px;
+        }
+
+        .upload-box {
+            border: 1px dashed rgba(255, 255, 255, 0.3);
+            border-radius: 14px;
+            padding: 16px;
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .upload-box label {
+            display: block;
+            margin-bottom: 10px;
+            font-size: 0.86rem;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .upload-box input {
+            width: 100%;
+            color: rgba(255, 255, 255, 0.88);
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translate(-50%, 0); }
+            40% { transform: translate(-50%, -10px); }
+            60% { transform: translate(-50%, -5px); }
+        }
+
+        @media (max-width: 1100px) {
+            .quick-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+            .upload-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5rem; }
+            .content { right: 5%; text-align: center; left: 5%; top: 78%; }
+            .portal-shell { padding-top: 112vh; width: min(1120px, 94vw); }
+            .portal-nav { padding: 14px 4vw; }
+            .flow-grid { grid-template-columns: 1fr; }
+            .upload-grid { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 560px) {
+            .quick-grid { grid-template-columns: 1fr; }
+            .nav-links { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="portal-nav">
+        <div class="brand">Cradle Ecosystem Portal</div>
+        <div class="nav-links">
+            <a href="#overview">Overview</a>
+            <a href="#pipeline">Pipeline</a>
+            <a href="#judging">Consensus Table</a>
+            <a href="#verification">Verification</a>
+        </div>
+    </nav>
+
+    <div id="canvas-container"></div>
+
+    <div class="content">
+        <h1>Cradle Portal<br>for Startup Progress</h1>
+    </div>
+
+    <div class="scroll-indicator">SCROLL DOWN v</div>
+
+    <main class="portal-shell">
+        <section class="panel" id="overview">
+            <h2 class="section-title">Program Command Center</h2>
+            <p class="section-subtitle">Fluid prototype UI for screening startups, assigning mentors, and verifying milestone progress. The animation remains in place while this content layer scrolls.</p>
+            <div class="quick-grid">
+                <article class="quick-tile">
+                    Active Startups
+                    <strong>42</strong>
+                    <span class="status-chip">12 pending screening</span>
+                </article>
+                <article class="quick-tile">
+                    Mentor Matches
+                    <strong>67</strong>
+                    <span class="status-chip">Neo4j linkage live</span>
+                </article>
+                <article class="quick-tile">
+                    Avg Alignment Score
+                    <strong>0.84</strong>
+                    <span class="status-chip">Learning loop improving</span>
+                </article>
+                <article class="quick-tile">
+                    Milestones Verified
+                    <strong>109</strong>
+                    <span class="status-chip">Vision checks enabled</span>
+                </article>
+            </div>
+            <div class="button-row">
+                <button id="btn-new-intake" class="btn btn-primary" type="button">Create New Intake</button>
+                <button id="btn-mentor-graph" class="btn btn-secondary" type="button">View Mentor Graph</button>
+                <button id="btn-policy-refresh" class="btn btn-secondary" type="button">Trigger Policy Refresh</button>
+            </div>
+        </section>
+
+        <section class="panel" id="pipeline">
+            <h2 class="section-title">Agentic Workflow Modules</h2>
+            <p class="section-subtitle">Navigation-friendly component blocks aligned to your five required modules for the hackathon demo.</p>
+            <div class="flow-grid">
+                <article class="flow-step">
+                    <h3>1) Agentic Gatekeeper</h3>
+                    <p>Parse SSM PDFs and pitch decks, then validate residency and ownership policy logic before interview eligibility.</p>
+                    <div class="button-row"><button id="btn-upload-ssm" class="btn btn-secondary" type="button">Upload SSM</button></div>
+                </article>
+                <article class="flow-step">
+                    <h3>2) Multimodal Interviewer</h3>
+                    <p>Generate custom technical defensibility and market gap questions, then capture applicant responses.</p>
+                    <div class="button-row"><button id="btn-start-interview" class="btn btn-secondary" type="button">Start Interview</button></div>
+                </article>
+                <article class="flow-step">
+                    <h3>3) Consensus Judging</h3>
+                    <p>Compare three model outputs and consolidate an investment score for the judge's override panel.</p>
+                    <div class="button-row"><button id="btn-run-analysis" class="btn btn-secondary" type="button">Run 3-Model Analysis</button></div>
+                </article>
+                <article class="flow-step">
+                    <h3>4) Programmable Linkage</h3>
+                    <p>On approval, create startup nodes, auto-match mentors, and trigger partner resources at milestone gates.</p>
+                    <div class="button-row"><button id="btn-sync-neo4j" class="btn btn-secondary" type="button">Sync Neo4j Matches</button></div>
+                </article>
+            </div>
+        </section>
+
+        <section class="panel" id="judging">
+            <h2 class="section-title">Consensus Judging Table</h2>
+            <p class="section-subtitle">Shadcn-style table layout preview with clear action controls for a judge to review and override.</p>
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Model</th>
+                            <th>Reasoning Snapshot</th>
+                            <th>Investment Score</th>
+                            <th>Decision</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Gemini 1.5 Pro</td>
+                            <td>Strong market timing, moderate go-to-market risk.</td>
+                            <td>82</td>
+                            <td><span class="status-chip">Approve</span></td>
+                        </tr>
+                        <tr>
+                            <td>Claude (Model Garden)</td>
+                            <td>Technical moat acceptable, team execution uncertain.</td>
+                            <td>76</td>
+                            <td><span class="status-chip">Conditional</span></td>
+                        </tr>
+                        <tr>
+                            <td>Llama (Model Garden)</td>
+                            <td>High regional fit and policy compliance confidence.</td>
+                            <td>79</td>
+                            <td><span class="status-chip">Approve</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="button-row">
+                <button id="btn-override-verdict" class="btn btn-primary" type="button">Override AI Verdict</button>
+                <button id="btn-save-reasoning" class="btn btn-secondary" type="button">Save Judge Reasoning</button>
+                <button id="btn-post-alignment" class="btn btn-secondary" type="button">Post to Alignment Loop</button>
+            </div>
+        </section>
+
+        <section class="panel" id="verification">
+            <h2 class="section-title">Vision-Based Evidence Verification</h2>
+            <p class="section-subtitle">Upload MVP demo evidence and trigger comparison against roadmap milestones before completion status changes.</p>
+            <div class="upload-grid">
+                <div class="upload-box">
+                    <label for="video-demo">MVP Video Demo</label>
+                    <input id="video-demo" type="file" accept="video/*">
+                </div>
+                <div class="upload-box">
+                    <label for="roadmap-file">Roadmap Description</label>
+                    <input id="roadmap-file" type="file" accept=".pdf,.doc,.docx,.txt">
+                </div>
+                <div class="upload-box">
+                    <label for="policy-file">Policy Notes</label>
+                    <input id="policy-file" type="file" accept=".pdf,.txt">
+                </div>
+            </div>
+            <div class="button-row">
+                <button id="btn-run-vision" class="btn btn-primary" type="button">Run Vision Verification</button>
+                <button id="btn-mark-complete" class="btn btn-secondary" type="button">Mark Milestone Complete</button>
+            </div>
+        </section>
+    </main>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+    <script>
+        // 1. Scene Setup
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2)); // Optimize for high DPI displays
+        document.getElementById('canvas-container').appendChild(renderer.domElement);
+
+        // 2. Particle System Generation
+        const particleCount = 10000; // Number of "stars"
+        const geometry = new THREE.BufferGeometry();
+
+        // Arrays to hold the coordinates for different states
+        const positions = new Float32Array(particleCount * 3);
+        const initialPositions = new Float32Array(particleCount * 3); // Cube shape
+        const targetPositions = new Float32Array(particleCount * 3);  // Universe shape
+
+        for (let i = 0; i < particleCount; i++) {
+            // --- STATE A: The Cube ---
+            // Create a 3x3x3 cube shape
+            const x = (Math.random() - 0.5) * 3;
+            const y = (Math.random() - 0.5) * 3;
+            const z = (Math.random() - 0.5) * 3;
+
+            // Shift the cube to the left side of the screen (x = -4)
+            initialPositions[i * 3] = x - 4;
+            initialPositions[i * 3 + 1] = y;
+            initialPositions[i * 3 + 2] = z;
+
+            // --- STATE B: The Universe Swarm ---
+            // Create a spherical galaxy distribution spreading outward
+            const radius = Math.random() * 25;
+            const theta = Math.random() * Math.PI * 2;
+            const phi = Math.acos((Math.random() * 2) - 1);
+
+            targetPositions[i * 3] = radius * Math.sin(phi) * Math.cos(theta);
+            targetPositions[i * 3 + 1] = radius * Math.sin(phi) * Math.sin(theta);
+            targetPositions[i * 3 + 2] = radius * Math.cos(phi);
+
+            // Set starting position to the cube
+            positions[i * 3] = initialPositions[i * 3];
+            positions[i * 3 + 1] = initialPositions[i * 3 + 1];
+            positions[i * 3 + 2] = initialPositions[i * 3 + 2];
+        }
+
+        geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+
+        // Style the particles
+        const material = new THREE.PointsMaterial({
+            color: 0xffffff,
+            size: 0.04,
+            transparent: true,
+            opacity: 0.8,
+            blending: THREE.AdditiveBlending // Gives them a glowing, starry look
+        });
+
+        const particles = new THREE.Points(geometry, material);
+        scene.add(particles);
+
+        camera.position.z = 8; // Pull camera back to see the scene
+
+        // 3. Scroll Tracking Logic
+        let scrollPercent = 0;
+        document.body.onscroll = () => {
+            // Calculate progress from 0 (top) to 1 (bottom)
+            scrollPercent = (document.documentElement.scrollTop || document.body.scrollTop) /
+                            ((document.documentElement.scrollHeight || document.body.scrollHeight) - document.documentElement.clientHeight);
+        };
+
+        // 4. Animation Loop
+        function animate() {
+            requestAnimationFrame(animate);
+
+            // Add a constant, slow rotation to the entire particle system
+            particles.rotation.x += 0.001;
+            particles.rotation.y += 0.002;
+
+            // Update particle positions based on scroll
+            const positionsAttribute = geometry.getAttribute('position');
+            const currentPos = positionsAttribute.array;
+
+            for (let i = 0; i < particleCount * 3; i++) {
+                // Determine animation curve. Using Math.pow makes the explosion accelerate naturally.
+                const progress = Math.pow(scrollPercent, 1.2);
+
+                // Lerp (Linear Interpolate) moves the particle smoothly from the cube to the universe
+                currentPos[i] = THREE.MathUtils.lerp(initialPositions[i], targetPositions[i], progress);
+            }
+
+            positionsAttribute.needsUpdate = true;
+
+            // Fade out the "Scroll Down" text as the user starts scrolling
+            const indicator = document.querySelector('.scroll-indicator');
+            if(scrollPercent > 0.02) {
+                indicator.style.opacity = Math.max(0, 0.5 - (scrollPercent * 10));
+            } else {
+                indicator.style.opacity = 0.5;
+            }
+
+            renderer.render(scene, camera);
+        }
+
+        animate();
+
+        // 5. Handle Window Resizing smoothly
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+
+            // Adjust cube position for mobile screens
+            if(window.innerWidth < 768) {
+                particles.position.y = 2; // Move it up slightly on mobile
+                particles.position.x = 4; // Re-center
+            } else {
+                particles.position.y = 0;
+                particles.position.x = 0;
+            }
+        });
+    </script>
+
+    <script>
+        const navigateTo = (id) => {
+            const el = document.getElementById(id);
+            if (el) {
+                el.scrollIntoView({ behavior: "smooth", block: "start" });
+            }
+        };
+
+        const setTemporaryLabel = (buttonId, label, restoreMs = 1400) => {
+            const btn = document.getElementById(buttonId);
+            if (!btn) return;
+            const original = btn.textContent;
+            btn.textContent = label;
+            setTimeout(() => {
+                btn.textContent = original;
+            }, restoreMs);
+        };
+
+        document.getElementById("btn-new-intake").addEventListener("click", () => navigateTo("pipeline"));
+        document.getElementById("btn-mentor-graph").addEventListener("click", () => setTemporaryLabel("btn-mentor-graph", "Graph Opened"));
+        document.getElementById("btn-policy-refresh").addEventListener("click", () => setTemporaryLabel("btn-policy-refresh", "Policy Synced"));
+        document.getElementById("btn-upload-ssm").addEventListener("click", () => {
+            navigateTo("verification");
+            document.getElementById("roadmap-file").focus();
+        });
+        document.getElementById("btn-start-interview").addEventListener("click", () => setTemporaryLabel("btn-start-interview", "Interview Started"));
+        document.getElementById("btn-run-analysis").addEventListener("click", () => navigateTo("judging"));
+        document.getElementById("btn-sync-neo4j").addEventListener("click", () => setTemporaryLabel("btn-sync-neo4j", "Neo4j Synced"));
+        document.getElementById("btn-save-reasoning").addEventListener("click", () => setTemporaryLabel("btn-save-reasoning", "Reasoning Saved"));
+        document.getElementById("btn-post-alignment").addEventListener("click", () => setTemporaryLabel("btn-post-alignment", "Posted"));
+        document.getElementById("btn-run-vision").addEventListener("click", () => setTemporaryLabel("btn-run-vision", "Verification Running...", 1800));
+        document.getElementById("btn-mark-complete").addEventListener("click", () => setTemporaryLabel("btn-mark-complete", "Milestone Marked"));
+
+        document.getElementById("btn-override-verdict").addEventListener("click", () => {
+            const reasoning = window.prompt("Enter judge override reasoning:");
+            if (reasoning && reasoning.trim().length > 0) {
+                setTemporaryLabel("btn-override-verdict", "Override Captured");
+            }
+        });
+    </script>
+</body>
+</html>
