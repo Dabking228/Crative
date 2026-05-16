@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import ParticleCanvas from './components/ParticleCanvas';
 import HomePanel from './components/HomePanel';
 import Footer from './components/Footer';
@@ -9,10 +10,9 @@ export default function Home() {
             <nav className={styles.portalNav}>
                 <div className={styles.brand}>Cradle Ecosystem Portal</div>
                 <div className={styles.navLinks}>
-                    <a href="#overview">Overview</a>
-                    <a href="#pipeline">Pipeline</a>
-                    <a href="#judging">Consensus Table</a>
-                    <a href="#verification">Verification</a>
+                    <a href="#about-us">About Us</a>
+                    <a href="#contact-us">Contact Us</a>
+                    <Link href="/signup" className={styles.navCta}>Login / Signup</Link>
                 </div>
             </nav>
 
