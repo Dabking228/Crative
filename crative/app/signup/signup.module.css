@@ -59,6 +59,30 @@
     gap: 8px;
 }
 
+.modeSwitch {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-bottom: 4px;
+}
+
+.modeButton {
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(7, 10, 17, 0.75);
+    color: rgba(255, 255, 255, 0.86);
+    border-radius: 12px;
+    padding: 10px 12px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.modeButtonActive {
+    border-color: rgba(37, 217, 255, 0.8);
+    background: linear-gradient(135deg, rgba(37, 217, 255, 0.24), rgba(20, 149, 255, 0.3));
+    color: #e7fbff;
+}
+
 .label {
     margin-top: 6px;
     font-size: 0.84rem;
@@ -75,6 +99,10 @@
     color: #fefefe;
     font-size: 0.94rem;
     box-sizing: border-box;
+}
+
+.input option {
+    color: #111827;
 }
 
 .input:focus {

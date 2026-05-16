@@ -7,9 +7,9 @@ export default function SignupPage() {
             <div className={styles.backgroundGlow} aria-hidden="true" />
             <main className={styles.signupCard}>
                 <p className={styles.kicker}>Welcome to Crative</p>
-                <h1 className={styles.title}>Create your account</h1>
+                <h1 className={styles.title}>Sign up or log in</h1>
                 <p className={styles.subtitle}>
-                    Register with your email and password.
+                    Use the same form for registration and login. Select role first for role-based auth.
                 </p>
 
                 <SignupForm />

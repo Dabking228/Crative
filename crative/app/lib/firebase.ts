@@ -1,6 +1,8 @@
 import { getApp, getApps, initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
 
+export type UserRole = 'startups' | 'judges';
+
 const firebaseConfig = {
     apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
     authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
@@ -27,3 +29,10 @@ export const firebaseConfigError =
     missingFirebaseKeys.length > 0
         ? `Missing Firebase env vars: ${missingFirebaseKeys.join(', ')}`
         : null;
+
+const tenantByRole: Record<UserRole, string | undefined> = {
+    startups: process.env.NEXT_PUBLIC_FIREBASE_TENANT_ID_STARTUPS,
+    judges: process.env.NEXT_PUBLIC_FIREBASE_TENANT_ID_JUDGES,
+};
+
+export const getTenantIdForRole = (role: UserRole) => tenantByRole[role] ?? null;
