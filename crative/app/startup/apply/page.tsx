@@ -4,8 +4,8 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useCallback, useRef, useState } from 'react';
 import { submitApplication, fileToBase64 } from '../../../lib/api';
-import GatekeeperStream from '../../../components/GatekeeperStream';
-import InterviewPanel from '../../../components/InterviewPanel';
+import GatekeeperStream from '../../components/GatekeeperStream';
+import InterviewPanel from '../../components/InterviewPanel';
 import type { SSEToken, EligibilityResult } from '../../../lib/types';
 
 const SECTORS = ['Fintech', 'Healthtech', 'AgriTech', 'EdTech', 'SaaS', 'E-commerce', 'Other'];

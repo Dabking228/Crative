@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { getEcosystemGraph } from '../../../lib/api';
-import GraphView from '../../../components/GraphView';
+import GraphView from '../../components/GraphView';
 import type { GraphData } from '../../../lib/types';
 
 export default function EcosystemGraphPage() {

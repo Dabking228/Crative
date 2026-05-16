@@ -1,7 +1,7 @@
 'use client';
 
-import { useCallback, useEffect, useRef, useState } from 'react';
-import type { GraphData, GraphNode } from '../lib/types';
+import { useEffect, useRef, useState } from 'react';
+import type { GraphData, GraphNode } from '../../lib/types';
 
 const NODE_COLORS: Record<string, string> = {
   Startup: '#2E5FAC',
@@ -22,7 +22,6 @@ export default function GraphView({ data }: Props) {
   const animFrameRef = useRef<number>(0);
 
   const nodesRef = useRef<Array<{ node: GraphNode; x: number; y: number; vx: number; vy: number }>>([]);
-  const [, forceUpdate] = useState(0);
 
   useEffect(() => {
     const container = containerRef.current;
@@ -148,6 +147,7 @@ export default function GraphView({ data }: Props) {
     animFrameRef.current = requestAnimationFrame(loop);
 
     function handleClick(e: MouseEvent) {
+      if (!canvas) return;
       const rect = canvas.getBoundingClientRect();
       const mx = e.clientX - rect.left;
       const my = e.clientY - rect.top;
@@ -163,7 +163,7 @@ export default function GraphView({ data }: Props) {
     canvas.addEventListener('click', handleClick);
     return () => {
       cancelAnimationFrame(animFrameRef.current);
-      canvas.removeEventListener('click', handleClick);
+      canvas?.removeEventListener('click', handleClick);
     };
   }, [data, visibleLabels]);
 

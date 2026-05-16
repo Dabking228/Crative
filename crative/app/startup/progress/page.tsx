@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { Suspense, useEffect, useState } from 'react';
 import { getJudgeDetail } from '../../../lib/api';
-import MilestoneTracker from '../../../components/MilestoneTracker';
+import MilestoneTracker from '../../components/MilestoneTracker';
 import type { ApplicationDetail, Mentor } from '../../../lib/types';
 
 const DEMO_MILESTONES = [

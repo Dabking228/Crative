@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import type { ConsolidatedAnalysis, DimensionScore } from '../lib/types';
+import type { ConsolidatedAnalysis, DimensionScore } from '../../lib/types';
 
 const DIMENSIONS = [
   { key: 'strengths', label: 'Strengths' },
@@ -183,7 +183,7 @@ export default function ConsensusTable({ analysis }: Props) {
                             }}>
                               {cell?.reasoning?.slice(0, 80)}{(cell?.reasoning?.length ?? 0) > 80 ? '…' : ''}
                             </div>
-                            {cell?.red_flags?.length > 0 && (
+                            {cell?.red_flags && cell.red_flags.length > 0 && (
                               <div style={{ marginTop: '4px', fontSize: '0.7rem', color: '#ffa502' }}>
                                 {cell.red_flags.length} flag{cell.red_flags.length > 1 ? 's' : ''}
                               </div>

@@ -4,8 +4,8 @@ import Link from 'next/link';
 import { useParams, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { getJudgeDetail, submitVerdict } from '../../../lib/api';
-import ConsensusTable from '../../../components/ConsensusTable';
-import OverrideModal from '../../../components/OverrideModal';
+import ConsensusTable from '../../components/ConsensusTable';
+import OverrideModal from '../../components/OverrideModal';
 import type { ApplicationDetail, Mentor, Verdict } from '../../../lib/types';
 
 export default function JudgeDetailPage() {

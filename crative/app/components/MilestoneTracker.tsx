@@ -1,8 +1,8 @@
 'use client';
 
 import { useRef, useState } from 'react';
-import { uploadMilestone, getMilestoneStatus, fileToBase64 } from '../lib/api';
-import type { MilestoneStatus } from '../lib/types';
+import { uploadMilestone, getMilestoneStatus, fileToBase64 } from '../../lib/api';
+import type { MilestoneStatus } from '../../lib/types';
 
 interface Milestone {
   id: string;

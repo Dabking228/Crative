@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { submitInterview } from '../lib/api';
+import { submitInterview } from '../../lib/api';
 
 interface Props {
   applicationId: string;

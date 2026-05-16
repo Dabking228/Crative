@@ -1,8 +1,8 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { streamGatekeeper } from '../lib/api';
-import type { SSEToken, EligibilityResult } from '../lib/types';
+import { streamGatekeeper } from '../../lib/api';
+import type { SSEToken, EligibilityResult } from '../../lib/types';
 
 interface Props {
   applicationId: string;
