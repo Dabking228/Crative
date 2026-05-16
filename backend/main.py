@@ -74,6 +74,8 @@ async def lifespan(app: FastAPI):
         await Neo4jClient.connect()
         logger.info("Neo4j connected")
         await _run_seed_if_needed()
+        from seed.load_from_neo4j import load_approved_from_neo4j
+        await load_approved_from_neo4j(applications)
         from seed.demo_data import load_demo_data
         await load_demo_data(applications)
         logger.info("Demo data loaded")

@@ -21,13 +21,14 @@ async def linkage_node(state: GraphState) -> GraphState:
             await session.run(
                 """
                 MERGE (s:Startup {id: $startup_id})
-                SET s.name = $name, s.sector = $sector, s.stage = $stage,
+                SET s.app_id = $app_id, s.name = $name, s.sector = $sector, s.stage = $stage,
                     s.incorporation_date = $incorporation_date,
                     s.country = 'MY', s.milestone_count = 0,
                     s.video_verified = false, s.status = 'approved',
                     s.approved_at = datetime()
                 """,
                 startup_id=startup_id,
+                app_id=state.get("application_id", ""),
                 name=state.get("startup_name", "Unknown"),
                 sector=state.get("sector", "Unknown"),
                 stage=state.get("stage", "Pre-seed"),
