@@ -2,10 +2,10 @@ import RoleTopNav from '../components/RoleTopNav';
 import styles from '../roles.module.css';
 
 const judgesNavItems = [
-    { label: 'Home', href: '/judges' },
-    { label: 'Past Projects', href: '/judges/past-projects' },
-    { label: 'Mentor-Mentee List', href: '/judges/mentor-mentee-list' },
-    { label: 'Pending Projects', href: '/judges/pending-projects' },
+    { label: 'Home', href: '/judge' },
+    { label: 'Past Projects', href: '/judge/past-projects' },
+    { label: 'Mentor-Mentee List', href: '/judge/mentor-mentee-list' },
+    { label: 'Pending Projects', href: '/judge/pending-projects' },
 ];
 
 export default function JudgesLayout({

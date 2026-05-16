@@ -2,10 +2,10 @@ import RoleTopNav from '../components/RoleTopNav';
 import styles from '../roles.module.css';
 
 const startupNavItems = [
-    { label: 'Home', href: '/startups' },
-    { label: 'Projects', href: '/startups/projects' },
-    { label: 'Application Status', href: '/startups/application-status' },
-    { label: 'Apply Programme', href: '/startups/apply-programme' },
+    { label: 'Home', href: '/startup' },
+    { label: 'Projects', href: '/startup/projects' },
+    { label: 'Application Status', href: '/startup/application-status' },
+    { label: 'Apply Programme', href: '/startup/apply-programme' },
 ];
 
 export default function StartupsLayout({

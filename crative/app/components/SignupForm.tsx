@@ -26,7 +26,7 @@ export default function SignupForm() {
     const [success, setSuccess] = useState('');
 
     const getRoleHomeRoute = (selectedRole: UserRole) =>
-        selectedRole === 'startups' ? '/startups' : '/judges';
+        selectedRole === 'startups' ? '/startup' : '/judge';
 
     const getRoleAwareAuth = () => {
         if (!firebaseAuth) {
