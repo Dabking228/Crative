@@ -9,13 +9,13 @@ export default function HomePanel() {
                     Empowering Malaysian Startups Through AI-Driven Evaluation
                 </h2>
                 <p className={styles.descriptionLead}>
-                    The startup funding process is slow, opaque, and inconsistently applied — leaving
+                    The startup funding process is slow, opaque, and inconsistently applied, leaving
                     high-potential founders waiting months for a verdict they deserve in days.
                 </p>
                 <p className={styles.descriptionBody}>
                     Crative is Cradle Fund&apos;s AI-powered ecosystem portal that transforms how startups
-                    are discovered, evaluated, and supported. Our multi-model AI pipeline — powered by
-                    Gemini, Claude, and Grok — screens eligibility in real time, conducts structured
+                    are discovered, evaluated, and supported. Our multi-model AI pipeline, powered by
+                    Gemini, Claude, and Grok will screens eligibility in real time, conducts structured
                     investment interviews, and delivers consensus-based recommendations to Cradle&apos;s
                     judges. Approved startups are matched with domain-expert mentors and guided through
                     a structured development roadmap, with every milestone verified and monitored
@@ -23,9 +23,9 @@ export default function HomePanel() {
                 </p>
                 <div className={styles.flowGrid} style={{ marginBottom: '20px' }}>
                     {[
-                        { step: '01', title: 'AI Eligibility Screen', desc: 'Upload SSM & pitch deck. Gemini Gatekeeper streams a real-time CIP eligibility verdict in seconds.' },
-                        { step: '02', title: 'Investment Interview', desc: 'Claude generates tailored questions. Founders answer; responses feed the multi-model consensus engine.' },
-                        { step: '03', title: 'Judge Panel Review', desc: 'Three AI models score seven dimensions. Cradle judges receive a recommendation with full reasoning.' },
+                        { step: '01', title: 'AI Eligibility Screen', desc: 'Upload SSM & pitch deck. Gemini Gatekeeper streams a real-time program eligibility verdict in seconds.' },
+                        { step: '02', title: 'Investment Interview', desc: 'Claude generates tailored questions to interview founders, responses is recorded for the multi-model consensus engine.' },
+                        { step: '03', title: 'Judge Panel Review', desc: 'Three AI models score seven dimensions. Cradle judges receive a summary of project recommendation with full reasoning.' },
                         { step: '04', title: 'Mentor & Roadmap', desc: 'Approved startups are matched with expert mentors and co-build a milestone roadmap tracked by Cradle.' },
                     ].map((item) => (
                         <div key={item.step} className={styles.flowStep}>

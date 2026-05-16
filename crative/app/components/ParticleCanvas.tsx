@@ -183,7 +183,7 @@ export default function ParticleCanvas() {
     return (
         <>
             {loadState === 'loading' && (
-                <div className={styles.loadingOverlay}>Scanning Banknote...</div>
+                <div className={styles.loadingOverlay}>Loading...</div>
             )}
             {loadState === 'error' && (
                 <div className={styles.loadingOverlay} style={{ color: 'red' }}>
@@ -195,12 +195,11 @@ export default function ParticleCanvas() {
                 <div className={styles.leftHalf} />
                 <div className={styles.rightHalf}>
                     <h1 className={styles.heading}>
-                        Discover the<br />best of you
+                        CRATIVE<br />Explore the infinity
                     </h1>
                 </div>
             </div>
             <div ref={indicatorRef} className={styles.scrollIndicator}>
-                SCROLL DOWN ↓
             </div>
         </>
     );
