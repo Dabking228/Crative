@@ -30,6 +30,7 @@ d.verify_connectivity(); print('Neo4j OK'); d.close()
 ### 4. Run
 ```bash
 uvicorn main:app --reload --host 0.0.0.0 --port 8000
+python -m uvicorn main:app --reload --host 0.0.0.0 --port 8000
 ```
 
 Neo4j is seeded automatically on first run.
