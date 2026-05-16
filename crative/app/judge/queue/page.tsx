@@ -40,8 +40,8 @@ export default function JudgeQueuePage() {
         background: 'rgba(5,5,8,0.9)', backdropFilter: 'blur(12px)',
         borderBottom: '1px solid rgba(255,255,255,0.08)',
       }}>
-        <Link href="/" style={{ color: 'white', textDecoration: 'none', fontSize: '0.9rem', fontWeight: 600, letterSpacing: '0.8px', textTransform: 'uppercase' }}>
-          ← Cradle Portal
+        <Link href="/judge" style={{ color: 'white', textDecoration: 'none', fontSize: '0.9rem', fontWeight: 600, letterSpacing: '0.8px', textTransform: 'uppercase' }}>
+          ← Back
         </Link>
         <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
           <Link href="/judge/graph" style={{

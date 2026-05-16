@@ -20,6 +20,7 @@ export default function JudgesPortalLayout({
             <div className={styles.roleBackgroundGlow} aria-hidden="true" />
             <RoleTopNav
                 siteName="Crative"
+                homeHref="/judge"
                 navItems={judgesNavItems}
                 profileInitials="CJ"
                 profileLabel="Judge profile"

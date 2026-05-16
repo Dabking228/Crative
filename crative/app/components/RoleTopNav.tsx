@@ -1,4 +1,7 @@
+'use client';
+
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import styles from '../roles.module.css';
 
 type NavItem = {
@@ -8,6 +11,7 @@ type NavItem = {
 
 type RoleTopNavProps = {
     siteName: string;
+    homeHref: string;
     navItems: NavItem[];
     profileInitials: string;
     profileLabel: string;
@@ -15,14 +19,19 @@ type RoleTopNavProps = {
 
 export default function RoleTopNav({
     siteName,
+    homeHref,
     navItems,
     profileInitials,
     profileLabel,
 }: RoleTopNavProps) {
+    const router = useRouter();
+
     return (
         <nav className={styles.roleNav}>
             <div className={styles.roleNavInner}>
-                <div className={styles.roleBrand}>{siteName}</div>
+                <Link href={homeHref} className={styles.roleBrand} style={{ textDecoration: 'none' }}>
+                    {siteName}
+                </Link>
 
                 <div className={styles.roleNavRight}>
                     {navItems.map((item) => (
@@ -31,7 +40,13 @@ export default function RoleTopNav({
                         </Link>
                     ))}
 
-                    <button className={styles.avatarButton} type="button" aria-label={profileLabel}>
+                    <button
+                        className={styles.avatarButton}
+                        type="button"
+                        aria-label={profileLabel}
+                        onClick={() => router.push('/profile')}
+                        title="View profile"
+                    >
                         <span className={styles.avatarInitials}>{profileInitials}</span>
                     </button>
                 </div>

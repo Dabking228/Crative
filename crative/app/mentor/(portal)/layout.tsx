@@ -1,14 +1,12 @@
 import RoleTopNav from '../../components/RoleTopNav';
 import styles from '../../roles.module.css';
 
-const startupNavItems = [
-    { label: 'Home', href: '/startup' },
-    { label: 'Projects', href: '/startup/projects' },
-    { label: 'Application Status', href: '/startup/application-status' },
-    { label: 'Apply Now', href: '/startup/apply' },
+const mentorNavItems = [
+    { label: 'Home', href: '/mentor' },
+    { label: 'My Startups', href: '/mentor/my-startups' },
 ];
 
-export default function StartupsPortalLayout({
+export default function MentorPortalLayout({
     children,
 }: Readonly<{
     children: React.ReactNode;
@@ -18,10 +16,10 @@ export default function StartupsPortalLayout({
             <div className={styles.roleBackgroundGlow} aria-hidden="true" />
             <RoleTopNav
                 siteName="Crative"
-                homeHref="/startup"
-                navItems={startupNavItems}
-                profileInitials="SU"
-                profileLabel="Startup profile"
+                homeHref="/mentor"
+                navItems={mentorNavItems}
+                profileInitials="MT"
+                profileLabel="Mentor profile"
             />
             <main className={styles.roleContent}>{children}</main>
         </div>

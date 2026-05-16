@@ -114,8 +114,8 @@ export default function ApplyPage() {
         background: 'rgba(5,5,8,0.9)', backdropFilter: 'blur(12px)',
         borderBottom: '1px solid rgba(255,255,255,0.08)',
       }}>
-        <Link href="/" style={{ color: 'white', textDecoration: 'none', fontSize: '0.9rem', fontWeight: 600, letterSpacing: '0.8px', textTransform: 'uppercase' }}>
-          ← Cradle Portal
+        <Link href="/startup" style={{ color: 'white', textDecoration: 'none', fontSize: '0.9rem', fontWeight: 600, letterSpacing: '0.8px', textTransform: 'uppercase' }}>
+          ← Back
         </Link>
         <span style={{ fontSize: '0.82rem', color: 'rgba(255,255,255,0.45)' }}>Startup Application</span>
       </nav>
@@ -280,7 +280,7 @@ export default function ApplyPage() {
             )}
             {eligibilityResult.result === 'FAIL' && (
               <div style={{ marginTop: '20px', textAlign: 'center' }}>
-                <Link href="/" style={{ color: '#25d9ff', fontSize: '0.88rem' }}>← Return to home</Link>
+                <Link href="/startup" style={{ color: '#25d9ff', fontSize: '0.88rem' }}>← Return to home</Link>
               </div>
             )}
           </div>

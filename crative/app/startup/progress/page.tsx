@@ -61,6 +61,39 @@ function ProgressContent() {
             </div>
           </div>
 
+          {/* View Roadmap — only for approved apps with mentors assigned */}
+          {detail?.status === 'approved' && detail?.matched_mentors && detail.matched_mentors.length > 0 && (
+            <div style={{ marginBottom: '28px' }}>
+              <h2 style={{ margin: '0 0 12px', fontSize: '1rem', color: 'rgba(255,255,255,0.7)', letterSpacing: '0.5px', textTransform: 'uppercase', fontWeight: 600 }}>
+                Development Roadmap
+              </h2>
+              <div style={{
+                background: 'linear-gradient(135deg, rgba(37,217,255,0.08), rgba(20,149,255,0.05))',
+                border: '1px solid rgba(37,217,255,0.25)',
+                borderRadius: '16px', padding: '20px',
+                display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '16px',
+              }}>
+                <div>
+                  <div style={{ fontWeight: 600, marginBottom: '4px' }}>Roadmap &amp; Development Plan</div>
+                  <div style={{ fontSize: '0.82rem', color: 'rgba(255,255,255,0.5)' }}>
+                    Co-edit your development roadmap with your assigned mentor. Once confirmed, follow the plan and upload proof at each stage.
+                  </div>
+                </div>
+                <Link
+                  href={`/startup/roadmap?id=${applicationId}`}
+                  style={{
+                    padding: '10px 20px', borderRadius: '10px', whiteSpace: 'nowrap',
+                    background: 'linear-gradient(135deg, #25d9ff, #1495ff)',
+                    color: '#021226', fontWeight: 700, fontSize: '0.85rem', textDecoration: 'none',
+                    flexShrink: 0,
+                  }}
+                >
+                  View Roadmap
+                </Link>
+              </div>
+            </div>
+          )}
+
           {/* Milestone tracker */}
           <h2 style={{ margin: '0 0 16px', fontSize: '1rem', color: 'rgba(255,255,255,0.7)', letterSpacing: '0.5px', textTransform: 'uppercase', fontWeight: 600 }}>
             Milestones
@@ -116,8 +149,8 @@ export default function StartupProgressPage() {
         background: 'rgba(5,5,8,0.9)', backdropFilter: 'blur(12px)',
         borderBottom: '1px solid rgba(255,255,255,0.08)',
       }}>
-        <Link href="/" style={{ color: 'white', textDecoration: 'none', fontSize: '0.9rem', fontWeight: 600, letterSpacing: '0.8px', textTransform: 'uppercase' }}>
-          ← Cradle Portal
+        <Link href="/startup" style={{ color: 'white', textDecoration: 'none', fontSize: '0.9rem', fontWeight: 600, letterSpacing: '0.8px', textTransform: 'uppercase' }}>
+          ← Back
         </Link>
         <span style={{ fontSize: '0.82rem', color: 'rgba(255,255,255,0.45)' }}>Startup Progress</span>
       </nav>

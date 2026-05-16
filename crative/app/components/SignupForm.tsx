@@ -8,7 +8,7 @@ import {
     signInWithEmailAndPassword,
     updateProfile,
 } from 'firebase/auth';
-import { firebaseAuth, firebaseConfigError, getTenantIdForRole, UserRole } from '../lib/firebase';
+import { firebaseAuth, firebaseConfigError, getTenantIdForRole, getRoleHomeRoute, UserRole } from '../lib/firebase';
 import styles from '../signup/signup.module.css';
 
 type AuthMode = 'signup' | 'login';
@@ -24,9 +24,6 @@ export default function SignupForm() {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
-
-    const getRoleHomeRoute = (selectedRole: UserRole) =>
-        selectedRole === 'startups' ? '/startup' : '/judge';
 
     const getRoleAwareAuth = () => {
         if (!firebaseAuth) {
@@ -44,7 +41,7 @@ export default function SignupForm() {
             return {
                 auth: null,
                 errorMessage:
-                    'Missing tenant ID for selected role. Add NEXT_PUBLIC_FIREBASE_TENANT_ID_STARTUPS and NEXT_PUBLIC_FIREBASE_TENANT_ID_JUDGES in .env.local.',
+                    `Missing tenant ID for role "${role}". Add the corresponding NEXT_PUBLIC_FIREBASE_TENANT_ID_* env var.`,
             };
         }
 
@@ -144,8 +141,9 @@ export default function SignupForm() {
                 value={role}
                 onChange={(event) => setRole(event.target.value as UserRole)}
             >
-                <option value="startups">Startups</option>
-                <option value="judges">Cradle Judges</option>
+                <option value="startups">Startup Founder</option>
+                <option value="judges">Cradle Judge</option>
+                <option value="mentors">Mentor</option>
             </select>
 
             {mode === 'signup' ? (
