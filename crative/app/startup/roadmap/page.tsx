@@ -299,7 +299,9 @@ export default function StartupRoadmapPage() {
                 background: 'rgba(5,5,8,0.9)', backdropFilter: 'blur(12px)',
                 borderBottom: '1px solid rgba(255,255,255,0.08)',
             }}>
-                <BackBtn />
+                <Suspense fallback={<span />}>
+                    <BackBtn />
+                </Suspense>
                 <span style={{ fontSize: '0.82rem', color: 'rgba(255,255,255,0.45)' }}>Development Roadmap</span>
             </nav>
             <Suspense fallback={<div style={{ textAlign: 'center', padding: '60px', color: 'rgba(255,255,255,0.4)' }}>Loading…</div>}>
